@@ -18,22 +18,17 @@ class StringSchemaTest {
     }
 
     @Test
-    void testStringEmptyAndNull() {
-        var schema = validator.string();
-
-        assertTrue(schema.isValid(""));
-        assertTrue(schema.isValid(null));
-    }
-
-    @Test
     void testString() {
         var schema = validator.string();
+
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(""));
 
         schema.required();
 
         assertFalse(schema.isValid(""));
         assertFalse(schema.isValid(null));
-        assertFalse(schema.isValid(43));
+        assertTrue(schema.isValid("True"));
 
         schema.minLength(5);
 

@@ -4,15 +4,13 @@ package hexlet.code.schemas;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class StringSchema implements SchemaValidation{
+public class StringSchema extends BaseSchema<String> {
 
-    private boolean required = false;
-    private int minLength = 1;
+    private int minLength = 0;
     private String contains = "";
-    private boolean valid = false;
 
     public StringSchema required() {
-        this.required = true;
+        this.requiredNotNullOrEmpty = true;
         return this;
     }
 
@@ -27,21 +25,20 @@ public class StringSchema implements SchemaValidation{
     }
 
     @Override
-    public boolean isValid(Object data) {
-        if (!required && (data == null || data.toString().isEmpty())) {
-            valid = true;
-        }
-        if (data instanceof String) {
-            if (required) {
-                valid = data.toString().length() >= minLength;
+    public boolean isValid(String data) {
+        valid = super.isValid(data);
+        if (data != null) {
+            if (requiredNotNullOrEmpty) {
+                valid = data.length() > minLength;
             }
             if (minLength > 1) {
-                valid = data.toString().length() >= minLength;
+                valid = data.length() >= minLength;
             }
             if (!contains.isEmpty()) {
-                valid = data.toString().toLowerCase().contains(contains);
+                valid = data.toLowerCase().contains(contains);
             }
         }
         return valid;
     }
 }
+
