@@ -14,13 +14,13 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    public StringSchema minLength(int minLength) {
-        this.minLength = minLength;
+    public StringSchema minLength(int length) {
+        this.minLength = length;
         return this;
     }
 
-    public StringSchema contains(String contains) {
-        this.contains = contains;
+    public StringSchema contains(String substring) {
+        this.contains = substring;
         return this;
     }
 

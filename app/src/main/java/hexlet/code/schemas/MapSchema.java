@@ -14,13 +14,13 @@ public class MapSchema<T> extends BaseSchema<Map<String, T>> {
         return this;
     }
 
-    public MapSchema<T> sizeOf(int sizeOf) {
-        this.sizeOf = sizeOf;
+    public MapSchema<T> sizeOf(int mapSize) {
+        this.sizeOf = mapSize;
         return this;
     }
 
-    public MapSchema<T> shape(Map<String, BaseSchema<T>> schemas) {
-        this.schemas = schemas;
+    public MapSchema<T> shape(Map<String, BaseSchema<T>> settings) {
+        this.schemas = settings;
         return this;
     }
 
@@ -36,7 +36,9 @@ public class MapSchema<T> extends BaseSchema<Map<String, T>> {
                 var schema = entry.getValue();
                 if (data.containsKey(key)) {
                     valid = schema.isValid(data.get(key));
-                    if (!valid) break;
+                    if (!valid) {
+                        break;
+                    }
                 } else {
                     valid = false;
                 }
