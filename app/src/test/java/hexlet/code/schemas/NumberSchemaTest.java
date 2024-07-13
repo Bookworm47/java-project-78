@@ -26,6 +26,8 @@ class NumberSchemaTest {
         schema.positive();
 
         assertTrue(schema.isValid(7));
+        assertTrue(schema.isValid(null));
+        assertFalse(schema.isValid(-7));
 
         schema.range(3, 6);
 

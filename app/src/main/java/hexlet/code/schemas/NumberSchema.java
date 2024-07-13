@@ -28,21 +28,17 @@ public class NumberSchema extends BaseSchema<Integer> {
     @Override
     public boolean isValid(Integer data) {
         valid = super.isValid(data);
-        if (requiredNotNullOrEmpty) {
-            valid = data != null;
-        }
-        if (positive) {
-            valid = super.isValid(data);
-            if (data != null) {
+        if (positive && data != null) {
                 valid = data > 0;
             }
-        }
+
         if (range != null) {
-            valid = super.isValid(data);
             if (data != null) {
                 int min = range[0];
                 int max = range[1];
                 valid = data >= min && data <= max;
+            } else {
+                valid = !requiredNotNullOrEmpty;
             }
         }
 

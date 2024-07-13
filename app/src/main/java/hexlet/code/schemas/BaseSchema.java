@@ -8,8 +8,8 @@ abstract class BaseSchema<T> {
     abstract BaseSchema<T> required();
 
     boolean  isValid(T data) {
-        if (!requiredNotNullOrEmpty && data == null) {
-            valid = true;
+        if (requiredNotNullOrEmpty) {
+            valid = data != null;
         }
         return valid;
     }

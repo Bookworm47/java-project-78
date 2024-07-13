@@ -31,7 +31,7 @@ public class StringSchema extends BaseSchema<String> {
             if (requiredNotNullOrEmpty) {
                 valid = data.length() > minLength;
             }
-            if (minLength > 1) {
+            if (minLength > 0) {
                 valid = data.length() >= minLength;
             }
             if (!contains.isEmpty()) {
