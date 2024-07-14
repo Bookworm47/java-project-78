@@ -39,8 +39,6 @@ public final class MapSchema extends BaseSchema<Map<String, String>> {
                     if (!valid) {
                         break;
                     }
-                } else {
-                    valid = false;
                 }
             }
         }
