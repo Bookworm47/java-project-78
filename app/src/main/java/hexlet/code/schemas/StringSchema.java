@@ -4,7 +4,7 @@ package hexlet.code.schemas;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class StringSchema extends BaseSchema<String> {
+public final class StringSchema extends BaseSchema<String> {
 
     private int minLength = 0;
     private String contains = "";

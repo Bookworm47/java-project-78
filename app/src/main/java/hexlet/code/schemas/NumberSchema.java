@@ -4,7 +4,7 @@ package hexlet.code.schemas;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema<Integer> {
 
     private boolean positive = false;
     private int[] range = null;
