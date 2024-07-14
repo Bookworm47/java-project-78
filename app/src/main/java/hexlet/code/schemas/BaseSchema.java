@@ -5,7 +5,7 @@ public abstract class BaseSchema<T> {
     boolean requiredNotNullOrEmpty = false;
     boolean valid = true;
 
-    abstract BaseSchema<T> required();
+    abstract BaseSchema required();
 
     boolean  isValid(T data) {
         if (requiredNotNullOrEmpty) {

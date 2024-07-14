@@ -21,7 +21,7 @@ class MapSchemaTest {
 
     @Test
     void testMapSchema() {
-        var schema = validator.<String>map();
+        var schema = validator.map();
         Map<String, String> data = new HashMap<>();
 
         assertTrue(schema.isValid(null));
@@ -47,7 +47,7 @@ class MapSchemaTest {
 
     @Test
     void testCheckSchemas() {
-        var schema = validator.<String>map();
+        var schema = validator.map();
         Map<String, String> data = new HashMap<>();
         data.put("firstName", "Mike");
         data.put("lastName", "Vazowski");
