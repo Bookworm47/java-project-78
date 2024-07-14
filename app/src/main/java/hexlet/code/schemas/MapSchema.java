@@ -9,12 +9,12 @@ public class MapSchema<T> extends BaseSchema<Map<String, T>> {
     private Map<String, BaseSchema<T>> schemas = null;
 
     @Override
-    BaseSchema<Map<String, T>> required() {
+    public BaseSchema<Map<String, T>> required() {
         this.requiredNotNullOrEmpty = true;
         return this;
     }
 
-    public MapSchema<T> sizeOf(int mapSize) {
+    public MapSchema<T> sizeof(int mapSize) {
         this.sizeOf = mapSize;
         return this;
     }
@@ -25,7 +25,7 @@ public class MapSchema<T> extends BaseSchema<Map<String, T>> {
     }
 
     @Override
-    boolean isValid(Map<String, T> data) {
+    public boolean isValid(Map<String, T> data) {
         valid = super.isValid(data);
         if (sizeOf < Integer.MAX_VALUE && data != null) {
             valid = data.size() == sizeOf;
