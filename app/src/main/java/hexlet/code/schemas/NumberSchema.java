@@ -1,12 +1,8 @@
 package hexlet.code.schemas;
 
-
-import lombok.NoArgsConstructor;
-
 import java.util.Objects;
 import java.util.function.Predicate;
 
-@NoArgsConstructor
 public final class NumberSchema extends BaseSchema<Integer> {
 
     @Override

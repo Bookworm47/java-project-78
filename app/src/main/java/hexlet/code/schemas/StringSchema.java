@@ -1,11 +1,7 @@
 package hexlet.code.schemas;
 
-
-import lombok.NoArgsConstructor;
-
 import java.util.function.Predicate;
 
-@NoArgsConstructor
 public final class StringSchema extends BaseSchema<String> {
 
     public StringSchema required() {
