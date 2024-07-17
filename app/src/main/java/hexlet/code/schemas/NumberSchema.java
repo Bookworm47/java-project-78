@@ -3,45 +3,29 @@ package hexlet.code.schemas;
 
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+import java.util.function.Predicate;
+
 @NoArgsConstructor
 public final class NumberSchema extends BaseSchema<Integer> {
 
-    private boolean positive = false;
-    private int[] range = null;
-
     @Override
     public NumberSchema required() {
-        this.requiredNotNullOrEmpty = true;
+        Predicate<Integer> predicate = Objects::nonNull;
+        addCheck("required", predicate);
         return this;
     }
 
     public NumberSchema positive() {
-        this.positive = true;
+        Predicate<Integer> predicate = s -> s == null || s > 0;
+        addCheck("positive", predicate);
         return this;
     }
 
     public NumberSchema range(int min, int max) {
-        this.range = new int[]{min, max};
+        Predicate<Integer> predicate = s -> s == null || s >= min && s <= max;
+        addCheck("range", predicate);
         return this;
     }
 
-    @Override
-    public boolean isValid(Integer data) {
-        valid = super.isValid(data);
-        if (positive && data != null) {
-            valid = data > 0;
-        }
-
-        if (range != null) {
-            if (data != null) {
-                int min = range[0];
-                int max = range[1];
-                valid = data >= min && data <= max;
-            } else {
-                valid = !requiredNotNullOrEmpty;
-            }
-        }
-
-        return valid;
-    }
 }

@@ -3,42 +3,28 @@ package hexlet.code.schemas;
 
 import lombok.NoArgsConstructor;
 
+import java.util.function.Predicate;
+
 @NoArgsConstructor
 public final class StringSchema extends BaseSchema<String> {
 
-    private int minLength = 0;
-    private String contains = "";
-
     public StringSchema required() {
-        this.requiredNotNullOrEmpty = true;
+        Predicate<String> predicate = s -> s != null && !s.isEmpty();
+        addCheck("required", predicate);
         return this;
     }
 
     public StringSchema minLength(int length) {
-        this.minLength = length;
+        Predicate<String> predicate = s -> s.length() >= length;
+        addCheck("minLength", predicate);
         return this;
     }
 
     public StringSchema contains(String substring) {
-        this.contains = substring;
+        Predicate<String> predicate = s -> s.contains(substring);
+        addCheck("contains", predicate);
         return this;
     }
 
-    @Override
-    public boolean isValid(String data) {
-        valid = super.isValid(data);
-        if (data != null) {
-            if (requiredNotNullOrEmpty) {
-                valid = data.length() > minLength;
-            }
-            if (minLength > 0) {
-                valid = data.length() >= minLength;
-            }
-            if (!contains.isEmpty()) {
-                valid = data.toLowerCase().contains(contains);
-            }
-        }
-        return valid;
-    }
 }
 

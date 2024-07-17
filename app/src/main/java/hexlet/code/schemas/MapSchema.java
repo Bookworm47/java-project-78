@@ -2,46 +2,39 @@ package hexlet.code.schemas;
 
 
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema<Map<String, String>> {
 
-    private int sizeOf = Integer.MAX_VALUE;
-    private Map<String, BaseSchema<String>> schemas = null;
-
     @Override
     public BaseSchema<Map<String, String>> required() {
-        this.requiredNotNullOrEmpty = true;
+        Predicate<Map<String, String>> predicate = Objects::nonNull;
+        addCheck("required", predicate);
         return this;
     }
 
     public MapSchema sizeof(int mapSize) {
-        this.sizeOf = mapSize;
+        Predicate<Map<String, String>> predicate = s -> s.size() == mapSize;
+        addCheck("sizeOf", predicate);
         return this;
     }
 
     public MapSchema shape(Map<String, BaseSchema<String>> settings) {
-        this.schemas = settings;
+        Predicate<Map<String, String>> predicate = s -> {
+            for (Map.Entry<String, BaseSchema<String>> entry : settings.entrySet()) {
+                var schema = entry.getValue();
+                var key = entry.getKey();
+                if (s == null) {
+                    return true;
+                } else if (s.containsKey(key) && !schema.isValid(s.get(key))) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        addCheck("shape", predicate);
         return this;
     }
 
-    @Override
-    public boolean isValid(Map<String, String> data) {
-        valid = super.isValid(data);
-        if (sizeOf < Integer.MAX_VALUE && data != null) {
-            valid = data.size() == sizeOf;
-        }
-        if (schemas != null && data != null) {
-            for (Map.Entry<String, BaseSchema<String>> entry : schemas.entrySet()) {
-                var key = entry.getKey();
-                var schema = entry.getValue();
-                if (data.containsKey(key)) {
-                    valid = schema.isValid(data.get(key));
-                    if (!valid) {
-                        break;
-                    }
-                }
-            }
-        }
-        return valid;
-    }
 }
